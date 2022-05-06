@@ -30,7 +30,7 @@ const { from } = require("rxjs");
 const moment = require("moment");
 const querystring = require("qs");
 
-const { user_fields } = require("../utilities/fb_fields");
+const { user_fields } = require("./utilities/fb_fields");
 
 const request = async (payload) => {
     let { info, ...rest } = payload;
