@@ -1610,30 +1610,4 @@ const Facebook = ({ user_id }) => {
     };
 };
 
-let user_id = "aobouNIIRJMSjsDs2dIXAwEKmiY2";
-let fb_ad_account_id = "1560519410661307";
-let date = "2022-03-11";
-
-// from(Facebook({ user_id }).adsets.get({ date, fb_ad_account_id })).pipe(
-//     concatMap(identity),
-//     rxmap(of),
-//     rxreduce((prev, curr) => [...prev, ...curr])
-// );
-// // .subscribe((result) => {
-// //     console.log("result");
-// //     console.log(result);
-// // });
-
-// update_facebook_assets({ user_id, date, asset_collection_path: "campaigns", asset_instance_path: "campaign" });
-// update_facebook_assets({ user_id, date, asset_collection_path: "adsets", asset_instance_path: "adset" });
-// update_facebook_assets({ user_id, date, asset_collection_path: "ads", asset_instance_path: "ad" });
-
-// Facebook({ user_id }).campaigns.insights.update({ date }).subscribe();
-// Facebook({ user_id }).adsets.insights.update({ date }).subscribe();
-// Facebook({ user_id }).ads.insights.update({ date }).subscribe();
-
-// Facebook({ user_id }).services.campaigns.update_insights_listener();
-// Facebook({ user_id }).services.adsets.update_insights_listener();
-// Facebook({ user_id }).services.ads.update_insights_listener();
-
 exports.Facebook = Facebook;
