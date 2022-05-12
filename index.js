@@ -17,7 +17,7 @@ const {
     arrayUnion,
     addDoc,
 } = require("firebase/firestore");
-const { db } = require("./database");
+const { db } = require("../database");
 const { Account } = require("./facebook");
 const { logroupby, lokeyby, pipeLog, louniqby, lomap, isEmail, isIPv4, isIPv6, lohas, loreduce } = require("helpers");
 const {
@@ -243,8 +243,8 @@ const Facebook = ({ user_id }) => {
                                 });
                             })
                         );
-                    }),
-                    rxmap(pipeLog)
+                    })
+                    // rxmap(pipeLog)
                 );
             },
         },
@@ -678,8 +678,8 @@ const Facebook = ({ user_id }) => {
                                 })
                             )
                         );
-                    }),
-                    rxmap(pipeLog)
+                    })
+                    // rxmap(pipeLog)
                 );
             },
         },
@@ -924,6 +924,7 @@ const Facebook = ({ user_id }) => {
 
             return from(adsets.get({ date, fb_ad_account_id })).pipe(
                 concatMap(identity),
+                // rxmap(pipeLog),
                 concatMap(({ adset_id, campaign_id, campaign_name, adset_name }) => {
                     // let fields = ["name", "ad_id", "account_id", "effective_status"];
                     let fields = undefined;
@@ -1145,10 +1146,13 @@ const Facebook = ({ user_id }) => {
                         )(value.insights);
 
                         return { user_id, ad_id, asset_id: ad_id, date, fb_ad_account_id, type: "ad", ...stats };
+                    }),
+                    catchError((error) => {
+                        console.log("error:facebook");
+                        console.log(error);
+                        return rxof({});
                     })
                 );
-
-                // return from(insights_query).pipe(concatMap(values));
             },
 
             set: ({ data, date } = {}) => {
@@ -1217,36 +1221,16 @@ const Facebook = ({ user_id }) => {
                     concatMap(() =>
                         from(setDoc(doc(db, "ad_insights", ad_id, "insight", date), payload, { merge: false })).pipe(
                             rxmap(() => console.log(`saved ad ${ad_id} insight`)),
+                            // rxmap(() => pipeLog(payload)),
                             rxmap(() => payload)
                         )
-                    )
+                    ),
+                    catchError((error) => {
+                        console.log("error:facebook");
+                        console.log(error);
+                        return rxof({});
+                    })
                 );
-
-                // let payload = {
-                //     ...data,
-                //     user_id,
-                //     user_ids: arrayUnion(user_id),
-                //     date,
-                //     asset_name: get("details", "asset_name")(data),
-                //     asset_id: get("details", "asset_id")(data),
-                //     account_id: get("details", "account_id")(data) || get("insights", 0, "account_id")(data),
-                //     created_at: now,
-                // };
-
-                if (data.stats) {
-                    return from(setDoc(doc(db, "ads", ad_id, "insights", `${now}`), payload)).pipe(
-                        concatMap(() =>
-                            from(setDoc(doc(db, "ads", ad_id, "insight", date), payload, { merge: false })).pipe(
-                                rxmap(() => {
-                                    console.log(`saved ad ${ad_id} insight`);
-                                    return payload;
-                                })
-                            )
-                        )
-                    );
-                } else {
-                    return rxof(data);
-                }
             },
         },
     };
@@ -1541,6 +1525,7 @@ const Facebook = ({ user_id }) => {
 
                                     from(Facebook({ user_id }).ad.insights.get({ ad_id: asset_id, date }))
                                         .pipe(
+                                            // rxmap(pipeLog),
                                             concatMap(identity),
                                             concatMap((ad) =>
                                                 Facebook({ user_id }).ad.insights.set({
@@ -1588,9 +1573,9 @@ const Facebook = ({ user_id }) => {
 
             return from(Facebook({ user_id })[asset_collection_path].get({ date, fb_ad_account_id })).pipe(
                 concatMap(identity),
-                concatMap((asset) => from(addDoc(collection(db, "services", "insights", "listener"), asset)).pipe(rxmap(() => asset))),
                 concatMap((asset) => from(Facebook({ user_id })[asset_instance_path].set({ ...asset, date, fb_ad_account_id }))),
-                catchError((error) => throwError(error))
+                catchError((error) => throwError(error)),
+                defaultIfEmpty({})
             );
         },
     };

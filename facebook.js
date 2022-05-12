@@ -1720,6 +1720,7 @@ const Account = (params) => {
             };
 
             let insights = await request(payload);
+
             return { type: "object", data: { ad_id, insights } };
         },
     };
@@ -1800,6 +1801,9 @@ const Account = (params) => {
 
     const ads = {
         get: async (params) => {
+            let func_name = "Account:ads:get";
+            console.log(func_name);
+
             let { adset_id, time_range, limit, effective_status = [], fields = [] } = params;
 
             let ads_fields = [
