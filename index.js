@@ -17,7 +17,7 @@ const {
     arrayUnion,
     addDoc,
 } = require("firebase/firestore");
-const { db } = require("../database");
+const { db } = require("./database");
 const { Account } = require("./facebook");
 const { logroupby, lokeyby, pipeLog, louniqby, lomap, isEmail, isIPv4, isIPv6, lohas, loreduce } = require("helpers");
 const {
