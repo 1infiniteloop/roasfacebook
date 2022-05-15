@@ -1595,3 +1595,4 @@ const Facebook = ({ user_id }) => {
 };
 
 exports.Facebook = Facebook;
+exports.Account = Account;
