@@ -18,7 +18,7 @@ const {
     addDoc,
 } = require("firebase/firestore");
 const { db } = require("./database");
-const { Account } = require("./facebook");
+const { Account, User } = require("./facebook");
 const { logroupby, lokeyby, pipeLog, louniqby, lomap, isEmail, isIPv4, isIPv6, lohas, loreduce } = require("helpers");
 const {
     pick,
@@ -1596,3 +1596,4 @@ const Facebook = ({ user_id }) => {
 
 exports.Facebook = Facebook;
 exports.Account = Account;
+exports.User = User;
