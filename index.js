@@ -1546,15 +1546,13 @@ const Facebook = ({ user_id }) => {
             },
         },
 
-        update_facebook_assets: async ({ date, type, project_account_id, fb_ad_account_id }) => {
+        update_facebook_assets: async ({ date, type, fb_ad_account_id }) => {
             let func_name = "services:update_facebook_assets";
             console.log(func_name);
 
             if (!date) {
                 date = utilities.today_pacific_date();
             }
-
-            if (!project_account_id) return throwError(`error:${func_name}:no project_account_id`);
 
             let asset_collection_map = {
                 campaigns: "campaigns",
