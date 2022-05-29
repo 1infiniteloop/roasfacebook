@@ -133,20 +133,21 @@ const Facebook = ({ user_id }) => {
     };
 
     let campaigns = {
-        get: async ({ date, fb_ad_account_id } = {}) => {
+        get: async ({ date, fb_ad_account_id, access_token } = {}) => {
             let func_name = "campaigns:get";
             console.log(func_name);
 
-            let credentials = await lastValueFrom(account.credentials());
+            // let credentials = await lastValueFrom(account.credentials());
 
             if (!date) {
                 date = utilities.today_pacific_date();
             }
 
-            if (!credentials) return throwError(`error:${func_name}:no credentials`);
+            // if (!credentials) return throwError(`error:${func_name}:no credentials`);
             if (!fb_ad_account_id) return throwError(`error:${func_name}:no fb_ad_account_id`);
+            if (!access_token) return throwError(`error:${func_name}:no access_token`);
 
-            let { access_token } = credentials;
+            // let { access_token } = credentials;
 
             let fbaccount = Account({ fb_ad_account_id, access_token });
 
