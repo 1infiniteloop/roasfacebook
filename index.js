@@ -540,7 +540,7 @@ const Facebook = ({ user_id }) => {
             if (!fb_ad_account_id) return throwError(`error:${func_name}:no fb_ad_account_id`);
             if (!access_token) return throwError(`error:${func_name}:no access_token`);
 
-            return from(campaigns.get({ date, fb_ad_account_id })).pipe(
+            return from(campaigns.get({ date, fb_ad_account_id, access_token })).pipe(
                 concatMap(identity),
                 concatMap(({ campaign_id, name: campaign_name }) => {
                     // let fields = ["name", "daily_budget", "adset_id", "account_id", "campaign_id", "effective_status"];
