@@ -936,7 +936,7 @@ const Facebook = ({ user_id }) => {
                     // let fields = ["name", "ad_id", "account_id", "effective_status"];
                     let fields = undefined;
 
-                    return from(adset.ads.get({ date, adset_id, fb_ad_account_id, fields })).pipe(
+                    return from(adset.ads.get({ date, adset_id, fb_ad_account_id, fields, access_token })).pipe(
                         concatMap(identity),
                         rxmap(values),
                         rxmap(
