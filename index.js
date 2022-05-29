@@ -777,7 +777,10 @@ const Facebook = ({ user_id }) => {
                 let func_name = "adset:ads:get";
                 console.log(func_name);
 
-                // let credentials = await lastValueFrom(account.credentials());
+                console.log("adset_id", adset_id);
+                console.log("date", date);
+                console.log("fb_ad_account_id", fb_ad_account_id);
+                console.log("access_token", access_token);
 
                 if (!date) {
                     date = utilities.today_pacific_date();
