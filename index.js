@@ -526,6 +526,10 @@ const Facebook = ({ user_id }) => {
             let func_name = "campaigns:get";
             console.log(func_name);
 
+            console.log("date", date);
+            console.log("fb_ad_account_id", fb_ad_account_id);
+            console.log("access_token", access_token);
+
             // let credentials = await lastValueFrom(account.credentials());
 
             if (!date) {
