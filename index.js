@@ -110,8 +110,8 @@ const Facebook = ({ user_id }) => {
             return from(
                 getDocs(query(collectionGroup(db, "integrations"), where("user_id", "==", user_id), where("account_name", "==", "facebook")))
             ).pipe(
-                rxmap((data) => data.docs.map((doc) => doc.data()))
-                // rxmap(pipe(head))
+                rxmap((data) => data.docs.map((doc) => doc.data())),
+                rxmap(pipe(head))
             );
         },
 
