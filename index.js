@@ -1116,9 +1116,9 @@ const Facebook = ({ user_id }) => {
 
                 payload = pipe(dissoc("user_id"))(payload);
 
-                console.log("setaddata");
-                console.log(date);
-                console.log(payload);
+                // console.log("setaddata");
+                // console.log(date);
+                // console.log(payload);
 
                 return setDoc(doc(db, "ads", ad_id, "asset", ad_id), payload, { merge: true }).then(() => {
                     console.log(`${func_name}:saved:${ad_id}`);
