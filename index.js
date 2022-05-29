@@ -343,8 +343,8 @@ const Facebook = ({ user_id }) => {
 
                 payload = pipe(dissoc("user_id"))(payload);
 
-                // console.log("campaignpayloaddata");
-                // console.log(payload);
+                console.log("campaignpayloaddata");
+                console.log(payload);
 
                 return setDoc(doc(db, "campaigns", campaign_id, "asset", campaign_id), payload, { merge: true }).then(() => {
                     console.log(`${func_name}:saved:${campaign_id}`);
@@ -1424,127 +1424,127 @@ const Facebook = ({ user_id }) => {
     };
 
     let services = {
-        campaigns: {
-            update_insights_listener: () => {
-                var insights_init_state = true;
-                onSnapshot(query(collection(db, "services", "insights", "listener")), (querySnapshot) => {
-                    console.log("campaignlistner");
-                    if (insights_init_state) {
-                        insights_init_state = false;
-                    } else {
-                        querySnapshot.docChanges().forEach(async (change) => {
-                            console.log("changetype");
-                            console.log(change.type);
+        // campaigns: {
+        //     update_insights_listener: () => {
+        //         var insights_init_state = true;
+        //         onSnapshot(query(collection(db, "services", "insights", "listener")), (querySnapshot) => {
+        //             console.log("campaignlistner");
+        //             if (insights_init_state) {
+        //                 insights_init_state = false;
+        //             } else {
+        //                 querySnapshot.docChanges().forEach(async (change) => {
+        //                     console.log("changetype");
+        //                     console.log(change.type);
 
-                            if (change.type === "added") {
-                                let data = change.doc.data();
-                                let { user_id, asset_id, type, date, details } = data;
+        //                     if (change.type === "added") {
+        //                         let data = change.doc.data();
+        //                         let { user_id, asset_id, type, date, details } = data;
 
-                                if (type == "campaign") {
-                                    console.log("modifiedactivead");
-                                    from(Facebook({ user_id }).campaign.insights.get({ campaign_id: asset_id, date }))
-                                        .pipe(
-                                            concatMap(identity),
-                                            concatMap((campaign) =>
-                                                Facebook({ user_id }).campaign.insights.set({
-                                                    data: { ...campaign, user_id, asset_id, type, date, details },
-                                                    date,
-                                                })
-                                            )
-                                        )
-                                        .subscribe();
-                                }
+        //                         if (type == "campaign") {
+        //                             console.log("modifiedactivead");
+        //                             from(Facebook({ user_id }).campaign.insights.get({ campaign_id: asset_id, date }))
+        //                                 .pipe(
+        //                                     concatMap(identity),
+        //                                     concatMap((campaign) =>
+        //                                         Facebook({ user_id }).campaign.insights.set({
+        //                                             data: { ...campaign, user_id, asset_id, type, date, details },
+        //                                             date,
+        //                                         })
+        //                                     )
+        //                                 )
+        //                                 .subscribe();
+        //                         }
 
-                                console.log("ALLDONE");
-                                return "done";
-                            }
-                        });
-                    }
-                });
-            },
-        },
+        //                         console.log("ALLDONE");
+        //                         return "done";
+        //                     }
+        //                 });
+        //             }
+        //         });
+        //     },
+        // },
 
-        adsets: {
-            update_insights_listener: () => {
-                var insights_init_state = true;
-                onSnapshot(query(collection(db, "services", "insights", "listener")), (querySnapshot) => {
-                    console.log("adsetlistner");
-                    if (insights_init_state) {
-                        insights_init_state = false;
-                    } else {
-                        querySnapshot.docChanges().forEach(async (change) => {
-                            console.log("changetype");
-                            console.log(change.type);
+        // adsets: {
+        //     update_insights_listener: () => {
+        //         var insights_init_state = true;
+        //         onSnapshot(query(collection(db, "services", "insights", "listener")), (querySnapshot) => {
+        //             console.log("adsetlistner");
+        //             if (insights_init_state) {
+        //                 insights_init_state = false;
+        //             } else {
+        //                 querySnapshot.docChanges().forEach(async (change) => {
+        //                     console.log("changetype");
+        //                     console.log(change.type);
 
-                            if (change.type === "added") {
-                                let data = change.doc.data();
-                                let { user_id, asset_id, type, date, details } = data;
+        //                     if (change.type === "added") {
+        //                         let data = change.doc.data();
+        //                         let { user_id, asset_id, type, date, details } = data;
 
-                                if (type == "adset") {
-                                    console.log("modifiedactiveadset");
-                                    from(Facebook({ user_id }).adset.insights.get({ adset_id: asset_id, date }))
-                                        .pipe(
-                                            concatMap(identity),
-                                            concatMap((adset) =>
-                                                Facebook({ user_id }).adset.insights.set({
-                                                    data: { ...adset, user_id, asset_id, type, date, details },
-                                                    date,
-                                                })
-                                            )
-                                        )
-                                        .subscribe();
-                                }
+        //                         if (type == "adset") {
+        //                             console.log("modifiedactiveadset");
+        //                             from(Facebook({ user_id }).adset.insights.get({ adset_id: asset_id, date }))
+        //                                 .pipe(
+        //                                     concatMap(identity),
+        //                                     concatMap((adset) =>
+        //                                         Facebook({ user_id }).adset.insights.set({
+        //                                             data: { ...adset, user_id, asset_id, type, date, details },
+        //                                             date,
+        //                                         })
+        //                                     )
+        //                                 )
+        //                                 .subscribe();
+        //                         }
 
-                                console.log("ALLDONE");
-                                return "done";
-                            }
-                        });
-                    }
-                });
-            },
-        },
+        //                         console.log("ALLDONE");
+        //                         return "done";
+        //                     }
+        //                 });
+        //             }
+        //         });
+        //     },
+        // },
 
-        ads: {
-            update_insights_listener: () => {
-                var insights_init_state = true;
-                onSnapshot(query(collection(db, "services", "insights", "listener")), (querySnapshot) => {
-                    console.log("listners");
-                    if (insights_init_state) {
-                        insights_init_state = false;
-                    } else {
-                        querySnapshot.docChanges().forEach(async (change) => {
-                            console.log("changetype");
-                            console.log(change.type);
+        // ads: {
+        //     update_insights_listener: () => {
+        //         var insights_init_state = true;
+        //         onSnapshot(query(collection(db, "services", "insights", "listener")), (querySnapshot) => {
+        //             console.log("listners");
+        //             if (insights_init_state) {
+        //                 insights_init_state = false;
+        //             } else {
+        //                 querySnapshot.docChanges().forEach(async (change) => {
+        //                     console.log("changetype");
+        //                     console.log(change.type);
 
-                            if (change.type === "added") {
-                                let data = change.doc.data();
-                                let { user_id, asset_id, type, date, details } = data;
+        //                     if (change.type === "added") {
+        //                         let data = change.doc.data();
+        //                         let { user_id, asset_id, type, date, details } = data;
 
-                                if (type == "ad") {
-                                    console.log("modifiedactivead");
+        //                         if (type == "ad") {
+        //                             console.log("modifiedactivead");
 
-                                    from(Facebook({ user_id }).ad.insights.get({ ad_id: asset_id, date }))
-                                        .pipe(
-                                            // rxmap(pipeLog),
-                                            concatMap(identity),
-                                            concatMap((ad) =>
-                                                Facebook({ user_id }).ad.insights.set({
-                                                    data: { ...ad, user_id, asset_id, type, date, details },
-                                                    date,
-                                                })
-                                            )
-                                        )
-                                        .subscribe();
-                                }
+        //                             from(Facebook({ user_id }).ad.insights.get({ ad_id: asset_id, date }))
+        //                                 .pipe(
+        //                                     // rxmap(pipeLog),
+        //                                     concatMap(identity),
+        //                                     concatMap((ad) =>
+        //                                         Facebook({ user_id }).ad.insights.set({
+        //                                             data: { ...ad, user_id, asset_id, type, date, details },
+        //                                             date,
+        //                                         })
+        //                                     )
+        //                                 )
+        //                                 .subscribe();
+        //                         }
 
-                                console.log("ALLDONE");
-                                return "done";
-                            }
-                        });
-                    }
-                });
-            },
-        },
+        //                         console.log("ALLDONE");
+        //                         return "done";
+        //                     }
+        //                 });
+        //             }
+        //         });
+        //     },
+        // },
 
         update_facebook_assets: async ({ date, type, fb_ad_account_id }) => {
             let func_name = "services:update_facebook_assets";
