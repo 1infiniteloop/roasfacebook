@@ -110,8 +110,8 @@ const Facebook = ({ user_id }) => {
             return from(
                 getDocs(query(collectionGroup(db, "integrations"), where("user_id", "==", user_id), where("account_name", "==", "facebook")))
             ).pipe(
-                rxmap((data) => data.docs.map((doc) => doc.data())),
-                rxmap(pipe(head))
+                rxmap((data) => data.docs.map((doc) => doc.data()))
+                // rxmap(pipe(head))
             );
         },
 
@@ -343,8 +343,8 @@ const Facebook = ({ user_id }) => {
 
                 payload = pipe(dissoc("user_id"))(payload);
 
-                console.log("campaignpayloaddata");
-                console.log(payload);
+                // console.log("campaignpayloaddata");
+                // console.log(payload);
 
                 return setDoc(doc(db, "campaigns", campaign_id, "asset", campaign_id), payload, { merge: true }).then(() => {
                     console.log(`${func_name}:saved:${campaign_id}`);
@@ -1591,6 +1591,9 @@ const Facebook = ({ user_id }) => {
         services,
     };
 };
+
+let user_id = "aobouNIIRJMSjsDs2dIXAwEKmiY2";
+// Facebook({ user_id }).account.credentials().subscribe(pipeLog);
 
 exports.Facebook = Facebook;
 exports.Account = Account;
