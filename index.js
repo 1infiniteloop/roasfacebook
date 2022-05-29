@@ -773,28 +773,28 @@ const Facebook = ({ user_id }) => {
         },
 
         ads: {
-            get: async ({ adset_id, date, fb_ad_account_id, fields = [] } = {}) => {
+            get: async ({ adset_id, date, fb_ad_account_id, fields = [], access_token } = {}) => {
                 let func_name = "adset:ads:get";
                 console.log(func_name);
 
-                let credentials = await lastValueFrom(account.credentials());
+                // let credentials = await lastValueFrom(account.credentials());
 
                 if (!date) {
                     date = utilities.today_pacific_date();
                 }
 
                 if (!adset_id) return throwError(`error:${func_name}:no adset id`);
-                if (!credentials) return throwError(`error:${func_name}:no credentials`);
+                if (!access_token) return throwError(`error:${func_name}:no access_token`);
                 if (!fb_ad_account_id) return throwError(`error:${func_name}:no fb_ad_account_id`);
 
-                let { access_token } = credentials;
+                // let { access_token } = credentials;
 
                 let fbaccount = Account({ fb_ad_account_id, access_token });
 
                 let ads_query = fbaccount.get({
                     ads: {
                         path: ["*ad_id"],
-                        params: { time_range: { since: date, until: date }, effective_status: ["ACTIVE"], adset_id, fields: undefined },
+                        params: { time_range: { since: date, until: date }, effective_status: ["ACTIVE"], adset_id, fields },
                     },
                 });
 
@@ -916,20 +916,20 @@ const Facebook = ({ user_id }) => {
     };
 
     let ads = {
-        get: async ({ date, fb_ad_account_id } = {}) => {
+        get: async ({ date, fb_ad_account_id, access_token } = {}) => {
             let func_name = "ads:get";
             console.log(func_name);
 
-            let credentials = await lastValueFrom(account.credentials());
+            // let credentials = await lastValueFrom(account.credentials());
 
             if (!date) {
                 date = utilities.today_pacific_date();
             }
 
-            if (!credentials) return throwError(`error:${func_name}:no credentials`);
+            if (!access_token) return throwError(`error:${func_name}:no access_token`);
             if (!fb_ad_account_id) return throwError(`error:${func_name}:no fb_ad_account_id`);
 
-            return from(adsets.get({ date, fb_ad_account_id })).pipe(
+            return from(adsets.get({ date, fb_ad_account_id, access_token })).pipe(
                 concatMap(identity),
                 // rxmap(pipeLog),
                 concatMap(({ adset_id, campaign_id, campaign_name, adset_name }) => {
