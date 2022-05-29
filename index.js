@@ -137,9 +137,9 @@ const Facebook = ({ user_id }) => {
             let func_name = "campaigns:get";
             console.log(func_name);
 
-            console.log("date", date);
-            console.log("fb_ad_account_id", fb_ad_account_id);
-            console.log("access_token", access_token);
+            // console.log("date", date);
+            // console.log("fb_ad_account_id", fb_ad_account_id);
+            // console.log("access_token", access_token);
 
             // let credentials = await lastValueFrom(account.credentials());
 
@@ -375,9 +375,9 @@ const Facebook = ({ user_id }) => {
                 let func_name = "campaign:adsets:get";
                 console.log(func_name);
 
-                console.log("date", date);
-                console.log("fb_ad_account_id", fb_ad_account_id);
-                console.log("access_token", access_token);
+                // console.log("date", date);
+                // console.log("fb_ad_account_id", fb_ad_account_id);
+                // console.log("access_token", access_token);
 
                 // let credentials = await lastValueFrom(account.credentials());
 
@@ -534,9 +534,9 @@ const Facebook = ({ user_id }) => {
             let func_name = "campaigns:get";
             console.log(func_name);
 
-            console.log("date", date);
-            console.log("fb_ad_account_id", fb_ad_account_id);
-            console.log("access_token", access_token);
+            // console.log("date", date);
+            // console.log("fb_ad_account_id", fb_ad_account_id);
+            // console.log("access_token", access_token);
 
             // let credentials = await lastValueFrom(account.credentials());
 
@@ -785,10 +785,10 @@ const Facebook = ({ user_id }) => {
                 let func_name = "adset:ads:get";
                 console.log(func_name);
 
-                console.log("adset_id", adset_id);
-                console.log("date", date);
-                console.log("fb_ad_account_id", fb_ad_account_id);
-                console.log("access_token", access_token);
+                // console.log("adset_id", adset_id);
+                // console.log("date", date);
+                // console.log("fb_ad_account_id", fb_ad_account_id);
+                // console.log("access_token", access_token);
 
                 if (!date) {
                     date = utilities.today_pacific_date();
