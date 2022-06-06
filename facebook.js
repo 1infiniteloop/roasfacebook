@@ -669,25 +669,20 @@ const Account = (params) => {
 
         stop: async (params) => {
             console.log("campaign:stop");
-            console.log(params);
 
             let { campaign_id, status } = params;
 
-            let url = `https://graph.facebook.com/v12.0/${campaign_id}`;
-
-            let payload = {
+            var config = {
                 method: "post",
-                url,
-                params: {
-                    access_token,
-                    status,
-                },
+                url: `${url}?access_token=${access_token}&status=${status}`,
+                headers: {},
             };
 
-            // let campaign = await request(payload);
+            let result = await axios(config).then((response) => {
+                return JSON.stringify(response.data);
+            });
 
-            // console.log("campaign:stop:result");
-            // console.log(campaign);
+            console.log(result);
 
             return {
                 type: "object",
@@ -730,16 +725,17 @@ const Account = (params) => {
 
             let url = `https://graph.facebook.com/v12.0/${campaign_id}`;
 
-            let payload = {
+            var config = {
                 method: "post",
-                url,
-                params: {
-                    access_token,
-                    daily_budget,
-                },
+                url: `${url}?access_token=${access_token}&daily_budget=${daily_budget}`,
+                headers: {},
             };
 
-            let result = await request(payload);
+            let result = await axios(config).then((response) => {
+                return JSON.stringify(response.data);
+            });
+
+            console.log(result);
 
             return {
                 type: "object",
@@ -773,25 +769,17 @@ const Account = (params) => {
                     let increase_amount = (Number(value) / 100) * Number(daily_budget);
                     let new_daily_budget = parseInt(Number(daily_budget) + increase_amount);
 
-                    console.log("campaigns:increase_budget:percent");
-                    console.log(access_token);
-                    console.log(campaign);
-                    console.log(campaign_id);
-                    console.log(daily_budget);
-                    console.log(increase_amount);
-                    console.log(new_daily_budget);
-
-                    let payload = {
-                        info: { endpoint: "increase_budget", type: "percent", asset_type: "campaign" },
+                    var config = {
                         method: "post",
-                        url,
-                        params: {
-                            access_token,
-                            daily_budget: new_daily_budget,
-                        },
+                        url: `${url}?access_token=${access_token}&daily_budget=${new_daily_budget}`,
+                        headers: {},
                     };
 
-                    let result = await request(payload);
+                    let result = await axios(config).then((response) => {
+                        return JSON.stringify(response.data);
+                    });
+
+                    console.log(result);
 
                     return {
                         type: "object",
@@ -805,17 +793,17 @@ const Account = (params) => {
                     let increase_amount = Number(value) * 100;
                     let new_daily_budget = parseInt(Number(daily_budget) + increase_amount);
 
-                    let payload = {
-                        info: { endpoint: "increase_budget", type: "amount", asset_type: "campaign" },
+                    var config = {
                         method: "post",
-                        url,
-                        params: {
-                            access_token,
-                            daily_budget: new_daily_budget,
-                        },
+                        url: `${url}?access_token=${access_token}&daily_budget=${new_daily_budget}`,
+                        headers: {},
                     };
 
-                    let result = await request(payload);
+                    let result = await axios(config).then((response) => {
+                        return JSON.stringify(response.data);
+                    });
+
+                    console.log(result);
 
                     return {
                         type: "object",
@@ -852,22 +840,22 @@ const Account = (params) => {
 
             if (account.utilities.is_cbo(campaign)) {
                 if (type == "percent") {
+                    console.log("hi");
                     let { daily_budget } = campaign;
                     let decrease_amount = (Number(value) / 100) * Number(daily_budget);
-                    let new_daily_budget = Number(daily_budget) - decrease_amount;
+                    let new_daily_budget = parseInt(Number(daily_budget) - decrease_amount);
 
-                    let payload = {
-                        info: { endpoint: "decrease_budget", type: "percent", asset_type: "campaign" },
+                    var config = {
                         method: "post",
-                        url,
-                        params: {
-                            access_token,
-                            daily_budget: new_daily_budget,
-                        },
+                        url: `${url}?access_token=${access_token}&daily_budget=${new_daily_budget}`,
+                        headers: {},
                     };
 
-                    let result = await request(payload);
-                    // console.log(result);
+                    let result = await axios(config).then((response) => {
+                        return JSON.stringify(response.data);
+                    });
+
+                    console.log(result);
 
                     return {
                         type: "object",
@@ -878,19 +866,18 @@ const Account = (params) => {
                 if (type == "amount") {
                     let { daily_budget } = campaign;
                     let decrease_amount = Number(value) * 100;
-                    let new_daily_budget = Number(daily_budget) - decrease_amount;
+                    let new_daily_budget = parseInt(Number(daily_budget) - decrease_amount);
 
-                    let payload = {
-                        info: { endpoint: "decrease_budget", type: "amount", asset_type: "campaign" },
+                    var config = {
                         method: "post",
-                        url,
-                        params: {
-                            access_token,
-                            daily_budget: new_daily_budget,
-                        },
+                        url: `${url}?access_token=${access_token}&daily_budget=${new_daily_budget}`,
+                        headers: {},
                     };
 
-                    let result = await request(payload);
+                    let result = await axios(config).then((response) => {
+                        return JSON.stringify(response.data);
+                    });
+
                     console.log(result);
 
                     return {
@@ -1289,26 +1276,22 @@ const Account = (params) => {
 
         stop: async (params) => {
             console.log("adset:stop");
-            console.log(params);
 
             let { adset_id, status } = params;
 
             let url = `https://graph.facebook.com/v12.0/${adset_id}`;
 
-            let payload = {
-                info: { endpoint: "stop", asset_type: "adset" },
+            var config = {
                 method: "post",
-                url,
-                params: {
-                    access_token,
-                    status,
-                },
+                url: `${url}?access_token=${access_token}&status=${status}`,
+                headers: {},
             };
 
-            let adset = await request(payload);
+            let result = await axios(config).then((response) => {
+                return JSON.stringify(response.data);
+            });
 
-            // console.log("adset:start:result");
-            // console.log(adset);
+            console.log(result);
 
             return {
                 type: "object",
@@ -1351,16 +1334,17 @@ const Account = (params) => {
 
             let url = `https://graph.facebook.com/v12.0/${adset_id}`;
 
-            let payload = {
+            var config = {
                 method: "post",
-                url,
-                params: {
-                    access_token,
-                    daily_budget,
-                },
+                url: `${url}?access_token=${access_token}&daily_budget=${daily_budget}`,
+                headers: {},
             };
 
-            let result = await request(payload);
+            let result = await axios(config).then((response) => {
+                return JSON.stringify(response.data);
+            });
+
+            console.log(result);
 
             return {
                 type: "object",
@@ -1370,7 +1354,6 @@ const Account = (params) => {
 
         increase_budget: async (params) => {
             console.log("adset:increase_budget");
-            console.log(params);
 
             let { adset_id, type, value, time_range } = params;
             let { since, until } = time_range;
@@ -1395,25 +1378,17 @@ const Account = (params) => {
                     let increase_amount = (Number(value) / 100) * Number(daily_budget);
                     let new_daily_budget = parseInt(Number(daily_budget) + increase_amount);
 
-                    // console.log("adset:increase_budget:percent");
-                    // console.log(access_token);
-                    // console.log(adset);
-                    // console.log(adset_id);
-                    // console.log(daily_budget);
-                    // console.log(increase_amount);
-                    // console.log(new_daily_budget);
-
-                    let payload = {
-                        info: { endpoint: "increase_budget", type: "percent", asset_type: "adset" },
+                    var config = {
                         method: "post",
-                        url,
-                        params: {
-                            access_token,
-                            daily_budget: new_daily_budget,
-                        },
+                        url: `${url}?access_token=${access_token}&daily_budget=${new_daily_budget}`,
+                        headers: {},
                     };
 
-                    let result = await request(payload);
+                    let result = await axios(config).then((response) => {
+                        return JSON.stringify(response.data);
+                    });
+
+                    console.log(result);
 
                     return {
                         type: "object",
@@ -1426,17 +1401,17 @@ const Account = (params) => {
                     let increase_amount = Number(value) * 100;
                     let new_daily_budget = parseInt(Number(daily_budget) + increase_amount);
 
-                    let payload = {
-                        info: { endpoint: "increase_budget", type: "amount", asset_type: "adset" },
+                    var config = {
                         method: "post",
-                        url,
-                        params: {
-                            access_token,
-                            daily_budget: new_daily_budget,
-                        },
+                        url: `${url}?access_token=${access_token}&daily_budget=${new_daily_budget}`,
+                        headers: {},
                     };
 
-                    let result = await request(payload);
+                    let result = await axios(config).then((response) => {
+                        return JSON.stringify(response.data);
+                    });
+
+                    console.log(result);
 
                     return {
                         type: "object",
@@ -1453,7 +1428,6 @@ const Account = (params) => {
 
         decrease_budget: async (params) => {
             console.log("adset:decrease_budget");
-            console.log(params);
 
             let { adset_id, type, value, time_range } = params;
             let { since, until } = time_range;
@@ -1478,18 +1452,17 @@ const Account = (params) => {
                     let decrease_amount = (Number(value) / 100) * Number(daily_budget);
                     let new_daily_budget = parseInt(Number(daily_budget) - decrease_amount);
 
-                    let payload = {
-                        info: { endpoint: "decrease_budget", type: "percent", asset_type: "adset" },
-                        endpoint: "decrease_budget",
+                    var config = {
                         method: "post",
-                        url,
-                        params: {
-                            access_token,
-                            daily_budget: new_daily_budget,
-                        },
+                        url: `${url}?access_token=${access_token}&daily_budget=${new_daily_budget}`,
+                        headers: {},
                     };
 
-                    let result = await request(payload);
+                    let result = await axios(config).then((response) => {
+                        return JSON.stringify(response.data);
+                    });
+
+                    console.log(result);
 
                     return {
                         type: "object",
@@ -1502,17 +1475,17 @@ const Account = (params) => {
                     let decrease_amount = Number(value) * 100;
                     let new_daily_budget = parseInt(Number(daily_budget) - decrease_amount);
 
-                    let payload = {
-                        info: { endpoint: "decrease_budget", type: "amount", asset_type: "adset" },
+                    var config = {
                         method: "post",
-                        url,
-                        params: {
-                            access_token,
-                            daily_budget: new_daily_budget,
-                        },
+                        url: `${url}?access_token=${access_token}&daily_budget=${new_daily_budget}`,
+                        headers: {},
                     };
 
-                    let result = await request(payload);
+                    let result = await axios(config).then((response) => {
+                        return JSON.stringify(response.data);
+                    });
+
+                    console.log(result);
 
                     return {
                         type: "object",
