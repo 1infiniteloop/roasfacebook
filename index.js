@@ -102,6 +102,32 @@ const Facebook = ({ user_id }) => {
             )(insights),
     };
 
+    let ad_account = {
+        save: (ad_account) => {
+            let func_name = "Facebook:ad_account:save";
+            console.log(func_name);
+            let { account_id: fb_account_id, roas_user_id } = ad_account;
+            let user_ids = arrayUnion(roas_user_id);
+            return from(setDoc(doc(db, "fb_ad_accounts", fb_account_id), { ...ad_account, user_ids }, { merge: true })).pipe(rxmap(() => ad_account));
+        },
+    };
+
+    let ad_accounts = {
+        get: ({ access_token, fb_user_id }) => {
+            let func_name = "Facebook:ad_account:get";
+            console.log(func_name);
+
+            let result = from(User({ access_token }).ad_accounts.get({ fb_user_id }));
+            return result;
+        },
+
+        save: (ad_accounts) => {
+            let func_name = "Facebook:ad_accounts:save";
+            console.log(func_name);
+            return from(ad_accounts).pipe(concatMap((ad_account) => from(Facebook.ad_account.save(ad_account))));
+        },
+    };
+
     let account = {
         credentials: () => {
             let func_name = "Facebook:account:credentials";
@@ -1607,6 +1633,8 @@ const Facebook = ({ user_id }) => {
         ad,
         stats,
         services,
+        ad_accounts,
+        ad_account,
     };
 };
 

@@ -545,6 +545,32 @@ const Account = (params) => {
         },
     };
 
+    const conversions = {
+        capi: async (params) => {
+            console.log("conversions:capi");
+
+            let { pixel_id, payload } = params;
+
+            console.log(pixel_id);
+            console.log(payload);
+
+            let url = `https://graph.facebook.com/v12.0/${pixel_id}/events`;
+
+            const response = await fetch(`${url}?access_token=${access_token}`, {
+                method: "post",
+                body: JSON.stringify(payload),
+                headers: { "Content-Type": "application/json" },
+            });
+
+            const pixel_event = await response.json();
+
+            // console.log("pixel_event");
+            // console.log(pixel_event);
+
+            return pixel_event;
+        },
+    };
+
     const adimages = {
         set: async (params) => {
             console.log("adimages:set");
